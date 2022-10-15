@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import os
 
 
 
@@ -16,4 +17,13 @@ def read_data(file_path):
     clean_df = clean_df.iloc[:,1:]
     return(clean_df)
     
-    
+def find_files(dir):
+    names = []
+    paths = []
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            names = names + [name[:-4]]
+            paths = paths + [os.path.join(root, name)]
+    return(names, paths)  
+
+
