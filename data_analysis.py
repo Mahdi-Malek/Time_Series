@@ -34,5 +34,6 @@ def gen_time_trend_features(df, order, fore_steps):
     from statsmodels.tsa.deterministic import DeterministicProcess
     dp = DeterministicProcess(index=df.index, constant=False, order=order, drop=True)
     X_train = dp.in_sample()
-    X_fore = dp.out_ofsample(steps=fore_steps)
+    X_fore = dp.out_of_sample(steps=fore_steps)
     return(X_train, X_fore)
+
