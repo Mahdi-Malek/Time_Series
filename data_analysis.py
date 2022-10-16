@@ -26,4 +26,13 @@ def find_files(dir):
             paths = paths + [os.path.join(root, name)]
     return(names, paths)  
 
+def plot_mov_av(df, cols, win):
+    moving_average = df[cols].rolling(window=win, center=True, min_periods=int(win/2)).mean()
+    moving_average.plot()
 
+def gen_time_trend_features(df, order, fore_steps):
+    from statsmodels.tsa.deterministic import DeterministicProcess
+    dp = DeterministicProcess(index=df.index, constant=False, order=order, drop=True)
+    X_train = dp.in_sample()
+    X_fore = dp.out_ofsample(steps=fore_steps)
+    return(X_train, X_fore)
